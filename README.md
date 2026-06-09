@@ -270,29 +270,45 @@ A: Yes, just add multiple URLs in Outlook, each with a different ICS URL. Each w
 The ICS import issue with Outlook is documented in:
 - **[Microsoft Support: ICS Calendar subscription not working](https://learn.microsoft.com/en-us/answers/questions/5529826/ics-calendar-subscription-not-working-has-the-feat)** – Official Microsoft support discussion explaining why Outlook blocks certain ICS requests without proper User-Agent headers
 
-### Similar Projects
+### Comparing Solutions
 
-This project was inspired by:
-- **[RaphaelBergmann/ICS-Proxy](https://github.com/RaphaelBergmann/ICS-Proxy)** – A Node.js-based ICS proxy solving the same problem. This Python/Flask version prioritizes simplicity, Docker-first design, and SSRF protection.
+There are three main approaches to solve this problem:
 
-### Alternatives (No Self-Hosting Required)
+| Aspect | outlook-ics-proxy | RaphaelBergmann/ICS-Proxy | CalConverter.app |
+|--------|-------------------|--------------------------|------------------|
+| **Type** | Docker Container | PHP Script | Cloud Service |
+| **Language** | Python (Flask) | PHP | Proprietary |
+| **Setup** | 3 Docker commands | Upload `.php` file to hosting | Copy-paste URL |
+| **Privacy** | ✅ Local only | ✅ Local only | ⚠️ Via their servers |
+| **Maintenance** | 👨‍💻 Self-managed | 👨‍💻 Self-managed | ✅ Fully managed |
+| **Infrastructure** | Your machine/server | PHP hosting required | Their servers |
+| **Caching** | ✅ In-memory (5 min) | ⚠️ Basic/none | ⚠️ Via CDN |
+| **SSRF Protection** | ✅ Comprehensive | ⚠️ Limited | ✅ Yes |
+| **Security Updates** | Depends on you | Depends on you | Automatic |
+| **Portability** | ✅ Move between servers | ⚠️ Tied to hosting | ❌ Vendor lock-in |
+| **Cost** | ✅ Free (your hardware) | ✅ Free (web hosting) | ✅ Free |
+| **Complexity** | 📦 Docker knowledge | 🔧 PHP/web hosting | 🚀 None |
 
-If you prefer not to self-host:
-- **[CalConverter.app](https://calconverter.app/)** – A free hosted service that converts and hosts ICS calendars, making them Outlook-compatible. No installation needed, but your calendar URL passes through their servers.
+### Which Solution to Choose?
 
-### Self-Host vs Hosted Alternatives
+**Choose outlook-ics-proxy if:**
+- ✅ You want Docker-first design (portable, reproducible, version-controlled)
+- ✅ You want advanced security (SSRF, timeouts, size limits, structured logging)
+- ✅ You're planning to self-host long-term on Docker Desktop or a home server
+- ✅ You want built-in caching without extra infrastructure
+- ✅ You're comfortable with Python and Docker ecosystem
 
-| Aspect | outlook-ics-proxy | CalConverter.app |
-|--------|------------------|-------------------|
-| **Privacy** | ✅ Local only, 100% control | ⚠️ Your URL goes through their servers |
-| **Setup** | 📦 3 Docker commands | 🚀 Copy-paste, instant |
-| **Maintenance** | 👨‍💻 You manage it | ✅ They maintain it |
-| **Portability** | ✅ Move to any server | ❌ Vendor lock-in |
-| **Cost** | ✅ Free (your hardware) | ✅ Free |
-| **Reliability** | ⚠️ Your uptime | ✅ Professional SLA |
+**Choose RaphaelBergmann/ICS-Proxy if:**
+- ✅ You already have PHP hosting (shared hosting, dedicated server, cPanel)
+- ✅ You prefer a single `.php` file over Docker
+- ✅ You want to avoid Docker complexity
+- ⚠️ Trade-offs: Less SSRF protection, requires manual PHP updates, minimal caching
 
-**Choose self-hosted if:** You want full privacy, don't mind Docker, plan to move to a home server.  
-**Choose CalConverter if:** You want zero setup and trust a third party with your calendar URL.
+**Choose CalConverter.app if:**
+- ✅ You want absolutely zero setup or infrastructure management
+- ✅ You're okay with a third party having access to your calendar URL
+- ✅ You prioritize ease-of-use and reliability over privacy
+- ✅ You don't want to manage any servers or code
 
 ---
 
