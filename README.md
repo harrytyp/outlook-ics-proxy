@@ -12,7 +12,7 @@ Bring your Google Calendar, Nextcloud, and other CalDAV-compatible calendars to 
 
 ```bash
 # 1. Clone & enter directory
-git clone https://github.com/yourusername/outlook-ics-proxy.git
+git clone https://github.com/harrytyp/outlook-ics-proxy.git
 cd outlook-ics-proxy
 
 # 2. Build
@@ -262,6 +262,37 @@ A: Typically every 60 minutes. The 5-min proxy cache helps avoid hammering Googl
 
 **Q: Multiple calendars?**  
 A: Yes, just add multiple URLs in Outlook, each with a different ICS URL. Each will be cached separately.
+
+## 🙏 Attribution & Related Work
+
+### The Problem
+
+The ICS import issue with Outlook is documented in:
+- **[Microsoft Support: ICS Calendar subscription not working](https://learn.microsoft.com/en-us/answers/questions/5529826/ics-calendar-subscription-not-working-has-the-feat)** – Official Microsoft support discussion explaining why Outlook blocks certain ICS requests without proper User-Agent headers
+
+### Similar Projects
+
+This project was inspired by:
+- **[RaphaelBergmann/ICS-Proxy](https://github.com/RaphaelBergmann/ICS-Proxy)** – A Node.js-based ICS proxy solving the same problem. This Python/Flask version prioritizes simplicity, Docker-first design, and SSRF protection.
+
+### Alternatives (No Self-Hosting Required)
+
+If you prefer not to self-host:
+- **[CalConverter.app](https://calconverter.app/)** – A free hosted service that converts and hosts ICS calendars, making them Outlook-compatible. No installation needed, but your calendar URL passes through their servers.
+
+### Self-Host vs Hosted Alternatives
+
+| Aspect | outlook-ics-proxy | CalConverter.app |
+|--------|------------------|-------------------|
+| **Privacy** | ✅ Local only, 100% control | ⚠️ Your URL goes through their servers |
+| **Setup** | 📦 3 Docker commands | 🚀 Copy-paste, instant |
+| **Maintenance** | 👨‍💻 You manage it | ✅ They maintain it |
+| **Portability** | ✅ Move to any server | ❌ Vendor lock-in |
+| **Cost** | ✅ Free (your hardware) | ✅ Free |
+| **Reliability** | ⚠️ Your uptime | ✅ Professional SLA |
+
+**Choose self-hosted if:** You want full privacy, don't mind Docker, plan to move to a home server.  
+**Choose CalConverter if:** You want zero setup and trust a third party with your calendar URL.
 
 ---
 
